@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+        src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    </script>
+    <title>Edit Task</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+  <h2>Edit Task</h2>
+
+  <section class="input">
+<!--    <div th:if="${task_success}">-->
+<!--      <p th:text="${task_success}" class=""></p>-->
+<!--    </div>-->
+
+    <form  th:action="@{/user/add_task}" method="POST" th:object="${task_edit}">
+      <label class="form-label">Task Name</label><br>
+        <input class="form-enter date" type="hidden" th:field="*{id}">
+      <input class="form-enter name" type="text"  required placeholder="Task Name" th:field="*{task_name}">
+      <br>
+      <label class="form-label">Description</label><br>
+      <input class="form-enter date" type="text" th:field="*{task_desc}">
+      <br>
+      <div>
+        <label class="form-label">Status</label><br>
+        <span>
+            <label class="form-label">Pending</label>
+            <input class="radio" type="radio" th:field="*{status}" required value="Pending">
+            <label class="form-label">In Progress</label>
+            <input class="radio" type="radio" th:field="*{status}" required value="In_Progress">
+            <label class="form-label">Done</label>
+            <input class="radio" type="radio" th:field="*{status}" required value="Done">
+          </span>
+
+      </div>
+      <br>
+      <label class="form-label">Created On</label><br>
+      <input class="form-enter assigned" type="date" required th:field="*{creation_date}">
+      <br>
+
+      <label class="form-label">Updated On</label><br>
+      <input class="form-enter assigned" type="date" th:field="*{update_date}" required>
+      <br>
+
+      <label class="form-label">Completed On</label><br>
+      <input class="form-enter assigned" type="date" th:field="*{completion_date}">
+      <br>
+      <input class="submit" type="submit" value="Submit">
+    </form>
+  </section>
+    <script>
+        $( ".selector" ).datepicker({
+            startDate: new Date()
+        });
+    </script>
+</body>
+</html>

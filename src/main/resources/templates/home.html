@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+      .wrapper {
+        min-width: 800px;
+        min-height: 638px;
+        border-color: grey;
+        border-style: solid;
+        border-width: 10px;
+        padding: 0;
+        margin: auto auto;
+        background-color: white;
+      }
+  .form1{
+    align-content: center;
+  }
+      header {
+        padding: 0;
+        margin: 0;
+        height: 139px;
+      }
+      body {
+        background-color: lightcoral;
+      }
+      .title {
+        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+        font-weight: bold;
+        margin: 0px;
+        padding: 42px 0px 0px 31px;
+        text-align: center;
+      }
+      .version {
+        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+        color: #616161;
+        padding: 0px 0px 0px 31px;
+
+      }
+      section {
+        min-width: 4rem;
+        min-height: 5rem;
+        margin: auto auto;
+        float: top;
+        border-width: 4px;
+        border-color: #f0f0f0;
+        border-style: solid;
+      }
+
+      .instruction {
+        font-family: Georgia, Times, Times New Roman, Serif;
+        font-weight: bold;
+        font-size: 18px;
+        margin-left: 350px;
+        padding-top: 10px;
+        margin: auto auto;
+      }
+      form {
+        min-width: 400px;
+        margin: auto ;
+        font-family: Arial, Helvetica Neue, Helvetica, Sans-Serif;
+        font-size: 20px;
+
+      }
+
+      .form-enter {
+        width: 520px;
+        height: 40px;
+        border-radius: 5px;
+        border-color: #dedede;
+        border-style: solid;
+        border-width: 1px;
+        background: #f0f0f0;
+        margin-bottom: 30px;
+        margin-top: 8px;
+      }
+      .submit {
+        width: 93px;
+        height: 46px;
+        background-color: #434343;
+        border-radius: 5px;
+        border-width: 1px;
+        border-color: #434343;
+        border-style: solid;
+        color: #ffffff;
+        font-family: Georgia, Times, Times New Roman, Serif;
+        font-size: 18px;
+      }
+      .input{
+        width: 800px;
+        margin: auto auto ;
+      }
+      /*.radio {*/
+      /*  font-family: Georgia, Times, Times New Roman, Serif;*/
+      /*  font-weight: bold;*/
+      /*  font-size: 18px;*/
+      /*  margin-left: 31px;*/
+      /*  */
+      /*}*/
+      input[type="radio"] {
+        -ms-transform: scale(1.5); /* IE 9 */
+        -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+        transform: scale(1.5);
+      }
+
+    </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <a class="nav-link" th:href="@{/user/show_all_tasks}">Show All Tasks</a>
+        <a class="nav-link" th:href="@{/user/pendingTask}">Pending Tasks</a>
+        <a class="nav-link" th:href="@{/user/inProgressTask}">In-Progress Tasks</a>
+        <a class="nav-link" href="/user/doneTask">Completed Tasks</a>
+        <a class="nav-link bg-danger" th:href="@{/user/logout}">LogOut</a>
+        // Search Bar
+<!--        <div class="input-group">-->
+<!--          <div class="form-outline">-->
+<!--            <input id="search-input" type="search"  class="form-control" />-->
+<!--            <label class="form-label" >Search</label>-->
+<!--          </div>-->
+<!--          <button id="search-button" type="button" class="btn btn-primary">-->
+<!--            <i class="fas fa-search"></i>-->
+<!--          </button>-->
+<!--        </div>-->
+      </div>
+    </div>
+  </div>
+</nav>
+<h2 th:text="${session.name_of_user}"></h2>
+  <div class="container-fluid justify-content-center">
+    <div class="wrapper ">
+      <header>
+        <h1 class="title">Task Tracker</h1>
+<!--        <p class="version">v2.0</p>-->
+      </header>
+      <section class="input d-flex justify-content-center">
+        <div th:if="${task_success}">
+          <p th:text="${task_success}" class=""></p>
+        </div>
+        <div class="form1">
+<!--        <h2 class="instruction">Create a Task</h2>-->
+        <form id="task" th:action="@{/user/add_task}" method="POST" th:object="${task}" class="container-fluid">
+          <label class="form-label">Task Name</label><br>
+          <input class="form-enter name" type="text"  required placeholder="Task Name" th:field="*{task_name}">
+          <br>
+          <label class="form-label">Description</label><br>
+          <input class="form-enter date" type="text" th:field="*{task_desc}">
+          <br>
+          <div>
+            <label class="form-label">Status</label><br>
+            <span>
+            <label class="form-label">Pending</label>
+            <input class="radio" type="radio" th:field="*{status}" required value="Pending">
+            <label class="form-label">In Progress</label>
+            <input class="radio" type="radio" th:field="*{status}" required value="In_Progress">
+            <label class="form-label">Done</label>
+            <input class="radio" type="radio" th:field="*{status}" required value="Done">
+          </span>
+
+          </div>
+          <br>
+          <label class="form-label">Created On</label><br>
+          <input class="form-enter assigned" type="date" required th:field="*{creation_date}">
+          <br>
+
+          <input class="submit" type="submit" value="Submit">
+        </form>
+        </div>
+      </section>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</body>
+</html>
