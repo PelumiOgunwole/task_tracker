@@ -7,10 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -33,17 +36,18 @@ public class Task {
     @Column(nullable = false)
     private String status;
 
-    @Column(nullable = false)
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private LocalDate creation_date;
+
+    @CreationTimestamp
+    private Timestamp creation_date;
 
 //    @Column(nullable = false)
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private LocalDate update_date;
+    @UpdateTimestamp
+    private Timestamp update_date;
 
 //    @Column(nullable = false)
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private LocalDate completion_date;
+    @UpdateTimestamp
+
+    private Timestamp completion_date;
 
     @ManyToOne(fetch = FetchType.LAZY)
 // FetchType.LAZY allows deleting of foreign keys withour a constraint error
@@ -53,7 +57,7 @@ public class Task {
     public Task() {
     }
 
-    public Task(Integer id, String task_name, String task_desc, String status, LocalDate creation_date, LocalDate update_date, LocalDate completion_date, User user) {
+    public Task(Integer id, String task_name, String task_desc, String status, Timestamp creation_date, Timestamp update_date, Timestamp completion_date, User user) {
         this.id = id;
         this.task_name = task_name;
         this.task_desc = task_desc;
@@ -64,7 +68,7 @@ public class Task {
         this.user = user;
     }
 
-    public Task(Integer id, String task_name, String task_desc, String status, LocalDate creation_date, User user) {
+    public Task(Integer id, String task_name, String task_desc, String status, Timestamp creation_date, User user) {
         this.id = id;
         this.task_name = task_name;
         this.task_desc = task_desc;
@@ -105,27 +109,27 @@ public class Task {
         this.status = status;
     }
 
-    public LocalDate getCreation_date() {
+    public Timestamp getCreation_date() {
         return creation_date;
     }
 
-    public void setCreation_date(LocalDate creation_date) {
+    public void setCreation_date(Timestamp creation_date) {
         this.creation_date = creation_date;
     }
 
-    public LocalDate getUpdate_date() {
+    public Timestamp getUpdate_date() {
         return update_date;
     }
 
-    public void setUpdate_date(LocalDate update_date) {
+    public void setUpdate_date(Timestamp update_date) {
         this.update_date = update_date;
     }
 
-    public LocalDate getCompletion_date() {
+    public Timestamp getCompletion_date() {
         return completion_date;
     }
 
-    public void setCompletion_date(LocalDate completion_date) {
+    public void setCompletion_date(Timestamp completion_date) {
         this.completion_date = completion_date;
     }
 
